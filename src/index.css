@@ -5,7 +5,6 @@
 @layer base {
   :root {
     --bg-deep: #08080a;
-    --bg-nav: rgba(8, 8, 10, 0.8);
     --primary: #f59e0b;
     --primary-glow: rgba(245, 158, 11, 0.3);
     --secondary: #10b981;
@@ -16,6 +15,11 @@
   body {
     @apply bg-bg-deep text-text-main antialiased selection:bg-primary/30 selection:text-white;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-image: url('/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 }
 
@@ -40,17 +44,76 @@
   }
 }
 
-/* Custom Animations */
-@keyframes float {
-  0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(2deg); }
-  100% { transform: translateY(0px) rotate(0deg); }
+/* HIGH QUALITY ATMOSPHERIC ANIMATIONS */
+
+/* 1. MOVING CLOUDS OVERLAY */
+.clouds-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.6;
 }
 
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+.cloud {
+  position: absolute;
+  background: white;
+  border-radius: 1000px;
+  filter: blur(80px);
 }
 
+@keyframes cloud-move {
+  from { transform: translateX(-100vw); }
+  to { transform: translateX(100vw); }
+}
+
+.cloud-1 { width: 600px; height: 300px; top: 10%; animation: cloud-move 60s linear infinite; }
+.cloud-2 { width: 500px; height: 200px; top: 30%; animation: cloud-move 80s linear infinite -20s; }
+.cloud-3 { width: 700px; height: 350px; top: 5%; animation: cloud-move 100s linear infinite -40s; }
+
+/* 2. SUNSHINE RAYS */
+.sunshine-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.08) 0%, transparent 60%);
+  animation: sun-pulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes sun-pulse {
+  from { opacity: 0.4; transform: scale(1); }
+  to { opacity: 0.8; transform: scale(1.1); }
+}
+
+.ray {
+  position: absolute;
+  top: -100px;
+  left: 10%;
+  width: 100px;
+  height: 1000px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent);
+  transform-origin: top center;
+  filter: blur(40px);
+}
+
+.ray-1 { transform: rotate(-30deg); animation: ray-rotate 15s linear infinite; }
+.ray-2 { transform: rotate(-10deg); animation: ray-rotate 20s linear infinite -5s; }
+.ray-3 { transform: rotate(10deg); animation: ray-rotate 25s linear infinite -10s; }
+
+@keyframes ray-rotate {
+  0% { transform: rotate(-40deg) skewX(0deg); }
+  50% { transform: rotate(-20deg) skewX(20deg); }
+  100% { transform: rotate(-40deg) skewX(0deg); }
+}
+
+/* Scanline and other effects */
 .scanline {
   background: linear-gradient(
     to bottom,
@@ -59,4 +122,14 @@
   );
   background-size: 100% 4px;
   pointer-events: none;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }

@@ -57,7 +57,7 @@ const Hero = () => (
         <span className="text-primary italic">THE NETWORK</span>
       </h1>
 
-      <p className="max-w-xl mx-auto text-text-secondary text-base md:text-xl font-medium leading-relaxed italic">
+      <p className="max-w-xl mx-auto text-white/80 text-base md:text-xl font-medium leading-relaxed italic drop-shadow-lg">
         "Transitioning from legacy infrastructure to the 4TK32 Protocol. Distributed sovereignty at 12ms global latency."
       </p>
 
@@ -65,7 +65,7 @@ const Hero = () => (
         <button className="btn-primary flex items-center gap-3 group">
           Initialize Sync <ChevronRight size={16} className="group-hover:translate-x-2 transition-transform" />
         </button>
-        <button className="px-10 py-5 bg-white/5 hover:bg-white/10 text-white text-xs font-black uppercase tracking-[0.2em] rounded-2xl transition-all border border-white/10 flex items-center gap-3 group">
+        <button className="px-10 py-5 bg-black/30 backdrop-blur-md hover:bg-black/50 text-white text-xs font-black uppercase tracking-[0.2em] rounded-2xl transition-all border border-white/20 flex items-center gap-3 group">
           View Raw Signals <Layers size={16} className="group-hover:scale-110 transition-transform" />
         </button>
       </div>
@@ -97,11 +97,11 @@ const Stats = () => (
      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
         {[
            { label: 'Active Nodes', val: '4,892', icon: <Globe size={20} /> },
-           { label: 'Transmissions', val: '1.2M', icon: < Zap size={20} /> },
+           { label: 'Transmissions', val: '1.2M', icon: <Zap size={20} /> },
            { label: 'Security Score', val: '99.9%', icon: <Shield size={20} /> },
            { label: 'Network Growth', val: '+430%', icon: <TrendingUp size={20} /> }
         ].map(stat => (
-           <div key={stat.label} className="premium-card p-10 space-y-4 hover:-translate-y-2 transition-transform">
+           <div key={stat.label} className="premium-card p-10 backdrop-blur-md bg-black/20 space-y-4 hover:-translate-y-2 transition-transform">
               <div className="p-3 bg-primary/10 rounded-xl text-primary w-fit inline-block mb-4">
                  {stat.icon}
               </div>
@@ -116,10 +116,26 @@ const Stats = () => (
 function App() {
   return (
     <div className="min-h-screen relative selection:bg-primary/30">
+      {/* ATMOSPHERIC ANIMATION OVERLAYS */}
+      <div className="clouds-container">
+        <div className="cloud cloud-1 opacity-20"></div>
+        <div className="cloud cloud-2 opacity-10"></div>
+        <div className="cloud cloud-3 opacity-15"></div>
+      </div>
+      
+      <div className="sunshine-overlay">
+        <div className="ray ray-1 opacity-10"></div>
+        <div className="ray ray-2 opacity-5"></div>
+        <div className="ray ray-3 opacity-10"></div>
+      </div>
+
       <div className="fixed inset-0 scanline z-[999] opacity-20" />
-      <Navbar />
-      <Hero />
-      <Stats />
+      
+      <div className="relative z-50">
+        <Navbar />
+        <Hero />
+        <Stats />
+      </div>
       
       {/* Background Decor */}
       <div className="fixed top-20 right-20 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
